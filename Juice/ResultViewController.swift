@@ -33,12 +33,7 @@ class ResultViewController: UIViewController {
         
         // Display the login controller again.
         DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let viewController = storyboard.instantiateViewController(withIdentifier: "loginViewController") as? LoginViewController
-                else { return }
-            viewController.modalPresentationStyle = .formSheet
-            viewController.isModalInPresentation = true
-            self.present(viewController, animated: true, completion: nil)
+            self.showLoginViewController()
         }
     }
 }

@@ -1,25 +1,78 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<Scheme version="2.0" LastUpgradeVersion="1100">
-	<AnalyzeAction buildConfiguration="Debug" />
-	<ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES" />
-	<TestAction shouldUseLaunchSchemeArgsEnv="YES" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" buildConfiguration="Debug" codeCoverageEnabled="NO" selectedLauncherIdentifier="Xcode.DebuggerFoundation.Launcher.LLDB">
-		<Testables />
-	</TestAction>
-	<ProfileAction debugDocumentVersioning="YES" buildConfiguration="Release" shouldUseLaunchSchemeArgsEnv="YES" savedToolIdentifier="" useCustomWorkingDirectory="NO">
-		<BuildableProductRunnable runnableDebuggingMode="0">
-			<BuildableReference BuildableName="Juice.app" BlueprintName="Juice" ReferencedContainer="container:Juice.xcodeproj" BuildableIdentifier="primary" BlueprintIdentifier="169AA5F4227C0E4E00BAB850" />
-		</BuildableProductRunnable>
-	</ProfileAction>
-	<BuildAction buildImplicitDependencies="YES" parallelizeBuildables="YES">
-		<BuildActionEntries>
-			<BuildActionEntry buildForArchiving="YES" buildForAnalyzing="YES" buildForProfiling="YES" buildForRunning="YES" buildForTesting="YES">
-				<BuildableReference BlueprintName="Juice" BuildableIdentifier="primary" BlueprintIdentifier="169AA5F4227C0E4E00BAB850" BuildableName="Juice.app" ReferencedContainer="container:Juice.xcodeproj" />
-			</BuildActionEntry>
-		</BuildActionEntries>
-	</BuildAction>
-	<LaunchAction debugServiceExtension="internal" selectedLauncherIdentifier="Xcode.DebuggerFoundation.Launcher.LLDB" ignoresPersistentStateOnLaunch="NO" debugDocumentVersioning="YES" allowLocationSimulation="YES" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" launchStyle="0" buildConfiguration="Debug" useCustomWorkingDirectory="NO">
-		<BuildableProductRunnable runnableDebuggingMode="0">
-			<BuildableReference ReferencedContainer="container:Juice.xcodeproj" BuildableName="Juice.app" BuildableIdentifier="primary" BlueprintName="Juice" BlueprintIdentifier="169AA5F4227C0E4E00BAB850" />
-		</BuildableProductRunnable>
-	</LaunchAction>
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1100"
+   version = "2.0">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "169AA5F4227C0E4E00BAB850"
+               BuildableName = "Juice.app"
+               BlueprintName = "Juice"
+               ReferencedContainer = "container:Juice.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "169AA5F4227C0E4E00BAB850"
+            BuildableName = "Juice.app"
+            BlueprintName = "Juice"
+            ReferencedContainer = "container:Juice.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "169AA5F4227C0E4E00BAB850"
+            BuildableName = "Juice.app"
+            BlueprintName = "Juice"
+            ReferencedContainer = "container:Juice.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
 </Scheme>
