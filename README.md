@@ -13,7 +13,7 @@ For more information about implementing Sign in with Apple on iOS 12 and earlier
 To configure the sample code project, perform the following steps in Xcode:
 
 1. On the Signing & Capabilities pane, [set the bundle ID][3] to a unique identifier (you must change the bundle ID to proceed).
-2. [Add your Apple ID account][4] and [assign the target to a team][5] so Xcode can enable the Sign In with Apple capability with your provisioning profile.
+2. [Add your Apple ID account][4] and [assign the target to a team][5] so Xcode can enable the Sign in with Apple capability with your provisioning profile.
 3. Choose a run destination from the scheme pop-up menu that you’re signed into with an Apple ID and that uses Two-Factor Authentication.
 4. If necessary, click Register Device in the Signing & Capabilities pane to create the provisioning profile.
 5. In the toolbar, click Run, or choose Product > Run (⌘R). 
