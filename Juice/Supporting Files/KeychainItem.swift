@@ -143,7 +143,7 @@ struct KeychainItem {
         do {
             try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").deleteItem()
         } catch {
-            print("Unable to delete userIdentifier from keychain")
+            print("---- KeychainItem.deleteUserIdentifierFromKeychain: Unable to delete userIdentifier from keychain")
         }
     }
 }
