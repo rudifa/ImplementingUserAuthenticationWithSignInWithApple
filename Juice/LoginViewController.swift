@@ -177,26 +177,26 @@ extension ASUserDetectionStatus {
 extension ASAuthorizationAppleIDCredential {
     override open var description: String {
         var sarr: [String] = []
-        sarr.append("userID: \(user)") // An opaque user ID associated with the AppleID used for the sign in. This identifier will be stable across the 'developer team', it can later be used as an input to @see ASAuthorizationRequest to request user contact information. The identifier will remain stable as long as the user is connected with the requesting client.  The value may change upon user disconnecting from the identity provider.
-        sarr.append("state: \(state ?? "")") // A copy of the state value that was passed to ASAuthorizationRequest.
-        sarr.append("authorizedScopes: \(authorizedScopes)") // This value will contain a list of scopes for which the user provided authorization.  These may contain a subset of the requested scopes on @see ASAuthorizationAppleIDRequest.  The application should query this value to identify which scopes were returned as it maybe different from ones requested.
+        sarr.append("  userID: \(user)") // An opaque user ID associated with the AppleID used for the sign in. This identifier will be stable across the 'developer team', it can later be used as an input to @see ASAuthorizationRequest to request user contact information. The identifier will remain stable as long as the user is connected with the requesting client.  The value may change upon user disconnecting from the identity provider.
+        sarr.append("  state: \(state ?? "")") // A copy of the state value that was passed to ASAuthorizationRequest.
+        sarr.append("  authorizedScopes: \(authorizedScopes)") // This value will contain a list of scopes for which the user provided authorization.  These may contain a subset of the requested scopes on @see ASAuthorizationAppleIDRequest.  The application should query this value to identify which scopes were returned as it maybe different from ones requested.
         var authorizationCodeStr = ""
         if let authorizationCode {
             authorizationCodeStr = String(data: authorizationCode, encoding: .utf8)!
         }
-        sarr.append("authorizationCode: \(authorizationCodeStr)") // A short-lived, one-time valid token that provides proof of authorization to the server component of the app. The authorization code is bound to the specific transaction using the state attribute passed in the authorization request. The server component of the app can validate the code using Apple’s identity service endpoint provided for this purpose.
+        sarr.append("  authorizationCode: \(authorizationCodeStr)") // A short-lived, one-time valid token that provides proof of authorization to the server component of the app. The authorization code is bound to the specific transaction using the state attribute passed in the authorization request. The server component of the app can validate the code using Apple’s identity service endpoint provided for this purpose.
         var identityTokenStr = ""
         if let identityToken {
             identityTokenStr = String(data: identityToken, encoding: .utf8)!
         }
-        sarr.append("identityToken: \(identityTokenStr)") // A JSON Web Token (JWT) used to communicate information about the identity of the user in a secure way to the app. The ID token will contain the following information: Issuer Identifier, Subject Identifier, Audience, Expiry Time and Issuance Time signed by Apple's identity service.
-        sarr.append("email: \(email ?? "")") // An optional email shared by the user.  This field is populated with a value that the user authorized.
+        sarr.append("  identityToken: \(identityTokenStr)") // A JSON Web Token (JWT) used to communicate information about the identity of the user in a secure way to the app. The ID token will contain the following information: Issuer Identifier, Subject Identifier, Audience, Expiry Time and Issuance Time signed by Apple's identity service.
+        sarr.append("  email: \(email ?? "")") // An optional email shared by the user.  This field is populated with a value that the user authorized.
         var fullNameStr = ""
         if let fullName {
             fullNameStr = "\(fullName)"
         }
-        sarr.append("fullName: \(fullNameStr)") // An optional full name shared by the user.  This field is populated with a value that the user authorized.
-        sarr.append("realUserStatus: \(realUserStatus)") // Check this property for a hint as to whether the current user is a "real user".  @see ASUserDetectionStatus for guidelines on handling each status
+        sarr.append("  fullName: \(fullNameStr)") // An optional full name shared by the user.  This field is populated with a value that the user authorized.
+        sarr.append("  realUserStatus: \(realUserStatus)") // Check this property for a hint as to whether the current user is a "real user".  @see ASUserDetectionStatus for guidelines on handling each status
         return sarr.joined(separator: "\n")
     }
 }
