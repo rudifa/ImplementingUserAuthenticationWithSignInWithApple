@@ -9,7 +9,6 @@ import AuthenticationServices
 import UIKit
 
 class LoginViewController: UIViewController {
-
     @IBOutlet var loginProviderStackView: UIStackView!
 
     override func viewDidLoad() {
@@ -86,7 +85,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
             showResultViewController(credential: appleIDCredential)
 
-            updateResultViewController(credential: appleIDCredential)
+            updateResultViewController(from: appleIDCredential)
 
         case let passwordCredential as ASPasswordCredential:
 
@@ -142,24 +141,24 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 //        }
 //    }
 
-    private func showResultViewController(userIdentifier: String, fullName: PersonNameComponents?, email: String?) {
-        guard let viewController = presentingViewController as? ResultViewController
-        else { return }
-
-        DispatchQueue.main.async {
-            viewController.userIdentifierLabel.text = userIdentifier
-            if let givenName = fullName?.givenName {
-                viewController.givenNameLabel.text = givenName
-            }
-            if let familyName = fullName?.familyName {
-                viewController.familyNameLabel.text = familyName
-            }
-            if let email = email {
-                viewController.emailLabel.text = email
-            }
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
+//    private func showResultViewController(userIdentifier: String, fullName: PersonNameComponents?, email: String?) {
+//        guard let viewController = presentingViewController as? ResultViewController
+//        else { return }
+//
+//        DispatchQueue.main.async {
+//            viewController.userIdentifierLabel.text = userIdentifier
+//            if let givenName = fullName?.givenName {
+//                viewController.givenNameLabel.text = givenName
+//            }
+//            if let familyName = fullName?.familyName {
+//                viewController.fullNameLabel.text = familyName
+//            }
+//            if let email = email {
+//                viewController.emailLabel.text = email
+//            }
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//    }
 
     private func showResultViewController(credential: ASAuthorizationAppleIDCredential) {
         guard let viewController = presentingViewController as? ResultViewController
@@ -167,32 +166,26 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
         DispatchQueue.main.async {
             viewController.userIdentifierLabel.text = credential.user
-            if let fullName = credential.fullName {
-                viewController.givenNameLabel.text = fullName.givenName
-                viewController.familyNameLabel.text = fullName.familyName
+            if let fullName = credential.fullName,
+               let familyName = fullName.familyName,
+               let givenName = fullName.givenName
+            {
+                viewController.fullNameLabel.text = familyName + " " + givenName
             }
             if let email = credential.email {
-                 viewController.emailLabel.text = email
+                viewController.emailLabel.text = email
             }
             self.dismiss(animated: true, completion: nil)
         }
     }
 
-    private func updateResultViewController(credential: ASAuthorizationAppleIDCredential) {
+    private func updateResultViewController(from credential: ASAuthorizationAppleIDCredential) {
         guard let resultViewController = presentingViewController as? ResultViewController
         else { return }
 
         DispatchQueue.main.async {
-//            viewController.userIdentifierLabel.text = credential.user
-//            if let fullName = credential.fullName {
-//                viewController.givenNameLabel.text = fullName.givenName
-//                viewController.familyNameLabel.text = fullName.familyName
-//            }
-//            if let email = credential.email {
-//                viewController.emailLabel.text = credential.email
-//            }
-//            self.dismiss(animated: true, completion: nil)
-            resultViewController.updateAuthorizationLabels(credential: credential)
+            resultViewController.updateCredentialLabels(from: credential)
+            resultViewController.updateKeychainLabels()
         }
     }
 

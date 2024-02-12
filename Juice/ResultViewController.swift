@@ -11,7 +11,7 @@ import UIKit
 class ResultViewController: UIViewController {
     @IBOutlet var userIdentifierLabel: UILabel!
     @IBOutlet var givenNameLabel: UILabel!
-    @IBOutlet var familyNameLabel: UILabel!
+    @IBOutlet var fullNameLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var signOutButton: UIButton!
 
@@ -20,13 +20,15 @@ class ResultViewController: UIViewController {
     @IBOutlet var authorizedScopesLabel: UILabel!
     @IBOutlet var authorizationCodeLabel: UILabel!
     @IBOutlet var identityTokenLabel: UILabel!
-    @IBOutlet var emailLabel3: UILabel!
-    @IBOutlet var fullNameLabel: UILabel!
+    @IBOutlet var emailLabel2: UILabel!
+    @IBOutlet var fullNameLabel2: UILabel!
     @IBOutlet var realUserStatusLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        userIdentifierLabel.text = KeychainItem.currentUserCredential.id
+//        userIdentifierLabel.text = "userID: " + KeychainItem.currentUserCredential.id
+
+        updateKeychainLabels()
 
         // show for testing
         // [Presentation] Attempt to present <Juice.LoginViewController: 0x12dd0df30> on <Juice.ResultViewController: 0x12dd09660> (from <Juice.ResultViewController: 0x12dd09660>) whose view is not in the window hierarchy.
@@ -68,7 +70,7 @@ class ResultViewController: UIViewController {
                     // Clear the user interface.
                     self.userIdentifierLabel.text = ""
                     self.givenNameLabel.text = ""
-                    self.familyNameLabel.text = ""
+                    self.fullNameLabel.text = ""
                     self.emailLabel.text = ""
 
                     // enable for testing
@@ -102,14 +104,29 @@ class ResultViewController: UIViewController {
         }
     }
 
-    public func updateAuthorizationLabels(credential: ASAuthorizationAppleIDCredential) {
+    public func updateKeychainLabels() {
+
+//            viewController.userIdentifierLabel.text = credential.user
+//            if let fullName = credential.fullName {
+//                viewController.givenNameLabel.text = fullName.givenName
+//                viewController.fullNameLabel.text = fullName.familyName
+//            }
+//            if let email = credential.email {
+//                 viewController.emailLabel.text = email
+//            }
+        userIdentifierLabel.text = "userID: " + KeychainItem.currentUserCredential.id
+        fullNameLabel.text = "fullName: " + KeychainItem.currentUserCredential.fullName
+        emailLabel.text = "email: " + KeychainItem.currentUserCredential.email
+    }
+
+    public func updateCredentialLabels(from credential: ASAuthorizationAppleIDCredential) {
         userIDLabel.text = "userID: " + credential.user
         stateLabel.text = "state: " + (credential.state ?? "")
         authorizedScopesLabel.text = "authorizedScopes: " + convertAuthorizedScopesToString(from: credential)
         authorizationCodeLabel.text = "authorizationCode: " + convertAuthorizationCodeToString(from: credential)
         identityTokenLabel.text = "identityToken: " + convertIdentityTokenToString(from: credential)
-        emailLabel3.text = "email: " + (credential.email ?? "")
-        fullNameLabel.text = convertFullNameToString(from: credential)
+        emailLabel2.text = "email: " + (credential.email ?? "")
+        fullNameLabel2.text = convertFullNameToString(from: credential)
         realUserStatusLabel.text = "realUserStatus: " + convertRealUserStatusToString(from: credential)
     }
 
