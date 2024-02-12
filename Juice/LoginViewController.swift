@@ -66,25 +66,15 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             printClassAndFunc("appleIDCredential:\n\(appleIDCredential)")
-//            // Create an account in your system.
-//            let userIdentifier = appleIDCredential.user
-//            let fullName = appleIDCredential.fullName
-//            let email = appleIDCredential.email
-//            // For the purpose of this demo app, store the `userIdentifier` in the keychain.
-//            saveUserInKeychain(userIdentifier)
 
             let newCredential = UserCredential(credential: appleIDCredential)
             printClassAndFunc("@newCredential: \(newCredential), isComplete: \(newCredential.isComplete)")
-
             if newCredential.isComplete {
                 // we get here only the first time after the app installation or after revocation in Settings
                 // because only in this case appleIDCredential contains the fullName and email;
                 // on a later pass appleIDCredential contains only the user id.
                 KeychainItem.saveCurrentUserCredential(newCredential)
             }
-
-            showResultViewController(credential: appleIDCredential)
-
             updateResultViewController(from: appleIDCredential)
 
         case let passwordCredential as ASPasswordCredential:
@@ -103,82 +93,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         }
     }
 
-    // FROM SHARE
-//
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//        switch authorization.credential {
-//        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-//            printClassAndFunc("@appleIDCredential: \(appleIDCredential)")
-//            let newCredential = UserCredential(credential: appleIDCredential)
-//            printClassAndFunc("@newCredential: \(newCredential), isComplete: \(newCredential.isComplete)")
-//
-//            if newCredential.isComplete {
-//                // we get here only the first time after the app installation or after revocation in Settings
-//                // because only in this case appleIDCredential contains the fullName and email;
-//                // on a later pass appleIDCredential contains only the user id.
-//                KeychainItem.saveCurrentUserCredential(newCredential)
-//            }
-//            appleCredentialCompleted?(.success(.authorized))
-//
-//        case let passwordCredential as ASPasswordCredential:
-//
-//            // Sign in using an existing iCloud Keychain credential.
-//            let username = passwordCredential.user
-//            let password = passwordCredential.password
-//            printClassAndFunc("@username: \(username), password: \(password)")
-//
-//        default:
-//            break
-//        }
-//        unwindToPresentingVC()
-//    }
-
-//    private func saveUserInKeychain(_ userIdentifier: String) {
-//        do {
-//            try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
-//        } catch {
-//            printClassAndFunc("Unable to save userIdentifier to keychain.")
-//        }
-//    }
-
-//    private func showResultViewController(userIdentifier: String, fullName: PersonNameComponents?, email: String?) {
-//        guard let viewController = presentingViewController as? ResultViewController
-//        else { return }
-//
-//        DispatchQueue.main.async {
-//            viewController.userIdentifierLabel.text = userIdentifier
-//            if let givenName = fullName?.givenName {
-//                viewController.givenNameLabel.text = givenName
-//            }
-//            if let familyName = fullName?.familyName {
-//                viewController.fullNameLabel.text = familyName
-//            }
-//            if let email = email {
-//                viewController.emailLabel.text = email
-//            }
-//            self.dismiss(animated: true, completion: nil)
-//        }
-//    }
-
-    private func showResultViewController(credential: ASAuthorizationAppleIDCredential) {
-        guard let viewController = presentingViewController as? ResultViewController
-        else { return }
-
-        DispatchQueue.main.async {
-            viewController.userIdentifierLabel.text = credential.user
-            if let fullName = credential.fullName,
-               let familyName = fullName.familyName,
-               let givenName = fullName.givenName
-            {
-                viewController.fullNameLabel.text = familyName + " " + givenName
-            }
-            if let email = credential.email {
-                viewController.emailLabel.text = email
-            }
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-
     private func updateResultViewController(from credential: ASAuthorizationAppleIDCredential) {
         guard let resultViewController = presentingViewController as? ResultViewController
         else { return }
@@ -186,6 +100,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         DispatchQueue.main.async {
             resultViewController.updateCredentialLabels(from: credential)
             resultViewController.updateKeychainLabels()
+            self.dismiss(animated: true, completion: nil)
         }
     }
 

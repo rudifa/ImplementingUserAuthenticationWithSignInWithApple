@@ -10,7 +10,6 @@ import UIKit
 
 class ResultViewController: UIViewController {
     @IBOutlet var userIdentifierLabel: UILabel!
-    @IBOutlet var givenNameLabel: UILabel!
     @IBOutlet var fullNameLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var signOutButton: UIButton!
@@ -26,13 +25,7 @@ class ResultViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        userIdentifierLabel.text = "userID: " + KeychainItem.currentUserCredential.id
-
         updateKeychainLabels()
-
-        // show for testing
-        // [Presentation] Attempt to present <Juice.LoginViewController: 0x12dd0df30> on <Juice.ResultViewController: 0x12dd09660> (from <Juice.ResultViewController: 0x12dd09660>) whose view is not in the window hierarchy.
-        // self.showLoginViewController()
     }
 
     @IBAction func signInButtonPressed() {
@@ -69,7 +62,6 @@ class ResultViewController: UIViewController {
 
                     // Clear the user interface.
                     self.userIdentifierLabel.text = ""
-                    self.givenNameLabel.text = ""
                     self.fullNameLabel.text = ""
                     self.emailLabel.text = ""
 
@@ -105,15 +97,6 @@ class ResultViewController: UIViewController {
     }
 
     public func updateKeychainLabels() {
-
-//            viewController.userIdentifierLabel.text = credential.user
-//            if let fullName = credential.fullName {
-//                viewController.givenNameLabel.text = fullName.givenName
-//                viewController.fullNameLabel.text = fullName.familyName
-//            }
-//            if let email = credential.email {
-//                 viewController.emailLabel.text = email
-//            }
         userIdentifierLabel.text = "userID: " + KeychainItem.currentUserCredential.id
         fullNameLabel.text = "fullName: " + KeychainItem.currentUserCredential.fullName
         emailLabel.text = "email: " + KeychainItem.currentUserCredential.email
