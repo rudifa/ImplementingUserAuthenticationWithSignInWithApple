@@ -26,7 +26,7 @@ class ResultViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        userIdentifierLabel.text = KeychainItem.currentUserIdentifier
+        userIdentifierLabel.text = KeychainItem.currentUserCredential.id
 
         // show for testing
         // [Presentation] Attempt to present <Juice.LoginViewController: 0x12dd0df30> on <Juice.ResultViewController: 0x12dd09660> (from <Juice.ResultViewController: 0x12dd09660>) whose view is not in the window hierarchy.
@@ -63,7 +63,7 @@ class ResultViewController: UIViewController {
                 // The Apple ID credential is either revoked or was not found, so we can delete the keychain item
                 DispatchQueue.main.async {
                     // Delete the user identifier that was previously stored in the keychain.
-                    KeychainItem.deleteUserIdentifierFromKeychain()
+                    KeychainItem.deleteCurrenUserCredential()
 
                     // Clear the user interface.
                     self.userIdentifierLabel.text = ""
@@ -89,7 +89,7 @@ class ResultViewController: UIViewController {
 
     fileprivate func dispatchOnAuthorization(completion: @escaping (Result<Bool, Error>) -> Void) {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
-        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { credentialState, _ in
+        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserCredential.id) { credentialState, _ in
             switch credentialState {
             case .authorized:
                 completion(.success(true)) // The Apple ID credential is valid.

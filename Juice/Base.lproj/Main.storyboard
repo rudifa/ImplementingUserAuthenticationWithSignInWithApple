@@ -306,6 +306,7 @@
                     <connections>
                         <outlet property="authorizationCodeLabel" destination="kMU-bI-ZfO" id="LkO-WU-0I7"/>
                         <outlet property="authorizedScopesLabel" destination="wZS-FC-ebi" id="h5v-mr-Zxr"/>
+                        <outlet property="emailLabel" destination="yE6-Zp-ODH" id="H1H-lB-afq"/>
                         <outlet property="emailLabel3" destination="nM6-hZ-oaf" id="pzU-VB-afp"/>
                         <outlet property="familyNameLabel" destination="6e2-5Z-E9X" id="jBn-rl-dvN"/>
                         <outlet property="fullNameLabel" destination="EBe-No-0JV" id="8lO-BG-qHM"/>

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func dispatchOnAuthorization(completion: @escaping (Result<Bool, Error>) -> Void) {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
-        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { credentialState, _ in
+        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserCredential.id) { credentialState, _ in
             switch credentialState {
             case .authorized:
                 completion(.success(true)) // The Apple ID credential is valid.
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func isAppAuthorised() async throws -> Bool {
         return try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Bool, Error>) in
             let appleIDProvider = ASAuthorizationAppleIDProvider()
-            appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { credentialState, _ in
+            appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserCredential.id) { credentialState, _ in
                 switch credentialState {
                 case .authorized:
                     continuation.resume(returning: true) // The Apple ID credential is valid.
