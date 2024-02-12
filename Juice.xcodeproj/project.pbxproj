@@ -37,8 +37,8 @@
 		169FA476227C3D79006A0051 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		9B548D815C2EEF38A11801AA /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		9D19980F2B7A7792002F1687 /* UserCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCredential.swift; sourceTree = "<group>"; };
-		9D3F62572B7963B500947638 /* README2.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README2.md; sourceTree = "<group>"; };
 		9D3F62582B7968FD00947638 /* wwdc2022-10122.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "wwdc2022-10122.txt"; sourceTree = "<group>"; };
+		9D6594BB2B7A8D1900F9AFD0 /* SIGNINWITHAPPLE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SIGNINWITHAPPLE.md; sourceTree = "<group>"; };
 		9DAC53FE2B796F74002ECA16 /* ASAAIDCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAAIDCredential.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				137212B01371F77000000001 /* README.md */,
-				9D3F62572B7963B500947638 /* README2.md */,
+				9D6594BB2B7A8D1900F9AFD0 /* SIGNINWITHAPPLE.md */,
 				9D3F62582B7968FD00947638 /* wwdc2022-10122.txt */,
 				169AA5F7227C0E4E00BAB850 /* Juice */,
 				169AA5F6227C0E4E00BAB850 /* Products */,
