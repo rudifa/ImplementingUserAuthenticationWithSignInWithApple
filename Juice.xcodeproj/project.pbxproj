@@ -15,6 +15,8 @@
 		169AA600227C0E4F00BAB850 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 169AA5FF227C0E4F00BAB850 /* Assets.xcassets */; };
 		169AA603227C0E4F00BAB850 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 169AA601227C0E4F00BAB850 /* LaunchScreen.storyboard */; };
 		169FA477227C3D79006A0051 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169FA476227C3D79006A0051 /* ResultViewController.swift */; };
+		9DAC53FF2B796F74002ECA16 /* ASAAIDCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAC53FE2B796F74002ECA16 /* ASAAIDCredential.swift */; };
+		9DAC54022B79725E002ECA16 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 9DAC54012B79725E002ECA16 /* JWTDecode */; };
 		9DB6A5772B07DDA900997DEB /* RudifaUtilPkg in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB6A5762B07DDA900997DEB /* RudifaUtilPkg */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,9 @@
 		169AA604227C0E4F00BAB850 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		169FA476227C3D79006A0051 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		9B548D815C2EEF38A11801AA /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		9D3F62572B7963B500947638 /* README2.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README2.md; sourceTree = "<group>"; };
+		9D3F62582B7968FD00947638 /* wwdc2022-10122.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "wwdc2022-10122.txt"; sourceTree = "<group>"; };
+		9DAC53FE2B796F74002ECA16 /* ASAAIDCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAAIDCredential.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +47,7 @@
 			files = (
 				9DB6A5772B07DDA900997DEB /* RudifaUtilPkg in Frameworks */,
 				160DE02A227C29AC00DD88A7 /* AuthenticationServices.framework in Frameworks */,
+				9DAC54022B79725E002ECA16 /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				137212B01371F77000000001 /* README.md */,
+				9D3F62572B7963B500947638 /* README2.md */,
+				9D3F62582B7968FD00947638 /* wwdc2022-10122.txt */,
 				169AA5F7227C0E4E00BAB850 /* Juice */,
 				169AA5F6227C0E4E00BAB850 /* Products */,
 				160DE028227C29AB00DD88A7 /* Frameworks */,
@@ -94,6 +102,7 @@
 				169AA5F8227C0E4E00BAB850 /* AppDelegate.swift */,
 				169AA5FA227C0E4E00BAB850 /* LoginViewController.swift */,
 				169FA476227C3D79006A0051 /* ResultViewController.swift */,
+				9DAC53FE2B796F74002ECA16 /* ASAAIDCredential.swift */,
 				169AA5FC227C0E4E00BAB850 /* Main.storyboard */,
 				1695577F228CDC10009DC0C0 /* Supporting Files */,
 			);
@@ -134,6 +143,7 @@
 			name = Juice;
 			packageProductDependencies = (
 				9DB6A5762B07DDA900997DEB /* RudifaUtilPkg */,
+				9DAC54012B79725E002ECA16 /* JWTDecode */,
 			);
 			productName = Juice;
 			productReference = 169AA5F5227C0E4E00BAB850 /* Juice.app */;
@@ -165,6 +175,7 @@
 			mainGroup = 169AA5EC227C0E4E00BAB850;
 			packageReferences = (
 				9DB6A5752B07DDA900997DEB /* XCRemoteSwiftPackageReference "RudifaUtilPkg" */,
+				9DAC54002B79725E002ECA16 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
 			);
 			productRefGroup = 169AA5F6227C0E4E00BAB850 /* Products */;
 			projectDirPath = "";
@@ -197,6 +208,7 @@
 				169AA5FB227C0E4E00BAB850 /* LoginViewController.swift in Sources */,
 				169AA5F9227C0E4E00BAB850 /* AppDelegate.swift in Sources */,
 				165E0944228BB03F00A42BB9 /* KeychainItem.swift in Sources */,
+				9DAC53FF2B796F74002ECA16 /* ASAAIDCredential.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,11 +364,12 @@
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = V7R356DGKL;
 				INFOPLIST_FILE = "Juice/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Juice;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.juice${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shAre.juice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -378,11 +391,12 @@
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = V7R356DGKL;
 				INFOPLIST_FILE = "Juice/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Juice;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.juice${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shAre.juice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -416,6 +430,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9DAC54002B79725E002ECA16 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/JWTDecode.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
 		9DB6A5752B07DDA900997DEB /* XCRemoteSwiftPackageReference "RudifaUtilPkg" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rudifa/RudifaUtilPkg";
@@ -427,6 +449,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9DAC54012B79725E002ECA16 /* JWTDecode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DAC54002B79725E002ECA16 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */;
+			productName = JWTDecode;
+		};
 		9DB6A5762B07DDA900997DEB /* RudifaUtilPkg */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9DB6A5752B07DDA900997DEB /* XCRemoteSwiftPackageReference "RudifaUtilPkg" */;

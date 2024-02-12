@@ -15,9 +15,28 @@ class ResultViewController: UIViewController {
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var signOutButton: UIButton!
 
+    @IBOutlet var userIDLabel: UILabel!
+    @IBOutlet var stateLabel: UILabel!
+    @IBOutlet var authorizedScopesLabel: UILabel!
+    @IBOutlet var authorizationCodeLabel: UILabel!
+    @IBOutlet var identityTokenLabel: UILabel!
+    @IBOutlet var emailLabel3: UILabel!
+    @IBOutlet var fullNameLabel: UILabel!
+    @IBOutlet var realUserStatusLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         userIdentifierLabel.text = KeychainItem.currentUserIdentifier
+
+        // show for testing
+        // [Presentation] Attempt to present <Juice.LoginViewController: 0x12dd0df30> on <Juice.ResultViewController: 0x12dd09660> (from <Juice.ResultViewController: 0x12dd09660>) whose view is not in the window hierarchy.
+        // self.showLoginViewController()
+    }
+
+    @IBAction func signInButtonPressed() {
+        DispatchQueue.main.async {
+            self.showLoginViewController()
+        }
     }
 
     @IBAction func signOutButtonPressed() {
@@ -32,7 +51,8 @@ class ResultViewController: UIViewController {
                 // and then come back to this app
 
                 DispatchQueue.main.async {
-                    let alertController = UIAlertController(title: "Delete Account", message: "Please delete the Juice account in Settings and then come back to this app.", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Delete Account", message: "Please delete the Juice account in " + "Settings : <your name> : Password and Security : Connect with Apple " +
+                        "and come back to this app.", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alertController.addAction(okAction)
                     self.present(alertController, animated: true, completion: nil)
@@ -51,6 +71,7 @@ class ResultViewController: UIViewController {
                     self.familyNameLabel.text = ""
                     self.emailLabel.text = ""
 
+                    // enable for testing
                     // self.showLoginViewController()
 
                     // present pop up an alert-OK saying that the user account was deleted
@@ -79,5 +100,56 @@ class ResultViewController: UIViewController {
                 break
             }
         }
+    }
+
+    public func updateAuthorizationLabels(credential: ASAuthorizationAppleIDCredential) {
+        userIDLabel.text = "userID: " + credential.user
+        stateLabel.text = "state: " + (credential.state ?? "")
+        authorizedScopesLabel.text = "authorizedScopes: " + convertAuthorizedScopesToString(from: credential)
+        authorizationCodeLabel.text = "authorizationCode: " + convertAuthorizationCodeToString(from: credential)
+        identityTokenLabel.text = "identityToken: " + convertIdentityTokenToString(from: credential)
+        emailLabel3.text = "email: " + (credential.email ?? "")
+        fullNameLabel.text = convertFullNameToString(from: credential)
+        realUserStatusLabel.text = "realUserStatus: " + convertRealUserStatusToString(from: credential)
+    }
+
+    private func convertRealUserStatusToString(from credential: ASAuthorizationAppleIDCredential) -> String {
+        switch credential.realUserStatus {
+        case .likelyReal:
+            return "Likely Real"
+        case .unknown:
+            return "Unknown"
+        case .unsupported:
+            return "Unsupported"
+        @unknown default:
+            return "Unknown"
+        }
+    }
+
+    private func convertIdentityTokenToString(from credential: ASAuthorizationAppleIDCredential) -> String {
+        guard let identityTokenData = credential.identityToken else {
+            return ""
+        }
+        return String(data: identityTokenData, encoding: .utf8) ?? ""
+    }
+
+    private func convertAuthorizationCodeToString(from credential: ASAuthorizationAppleIDCredential) -> String {
+        guard let authorizationCodeData = credential.authorizationCode else {
+            return ""
+        }
+        return String(data: authorizationCodeData, encoding: .utf8) ?? ""
+    }
+
+    private func convertAuthorizedScopesToString(from credential: ASAuthorizationAppleIDCredential) -> String {
+        return credential.authorizedScopes.map { $0.rawValue }.joined(separator: ", ")
+    }
+
+    private func convertFullNameToString(from credential: ASAuthorizationAppleIDCredential) -> String {
+        guard let fullName = credential.fullName else {
+            return ""
+        }
+        let familyName = fullName.familyName ?? ""
+        let givenName = fullName.givenName ?? ""
+        return "fullName: \(familyName) \(givenName)"
     }
 }

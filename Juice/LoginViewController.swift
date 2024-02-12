@@ -39,7 +39,11 @@ class LoginViewController: UIViewController {
         let authorizationController = ASAuthorizationController(authorizationRequests: requests)
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
+        if #available(iOS 16.0, *) {
+            authorizationController.performRequests(options: .preferImmediatelyAvailableCredentials)
+        } else {
+            authorizationController.performRequests()
+        }
     }
 
     /// - Tag: perform_appleid_request
@@ -62,7 +66,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
 
-            self.printClassAndFunc("appleIDCredential:\n\(appleIDCredential)")
+            printClassAndFunc("appleIDCredential:\n\(appleIDCredential)")
 
             // Create an account in your system.
             let userIdentifier = appleIDCredential.user
@@ -73,7 +77,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             saveUserInKeychain(userIdentifier)
 
             // For the purpose of this demo app, show the Apple ID credential information in the `ResultViewController`.
-            showResultViewController(userIdentifier: userIdentifier, fullName: fullName, email: email)
+//            showResultViewController1(userIdentifier: userIdentifier, fullName: fullName, email: email)
+            showResultViewController(credential: appleIDCredential)
+
+            updateResultViewController(credential: appleIDCredential)
 
         case let passwordCredential as ASPasswordCredential:
 
@@ -95,7 +102,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         do {
             try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
         } catch {
-            self.printClassAndFunc("Unable to save userIdentifier to keychain.")
+            printClassAndFunc("Unable to save userIdentifier to keychain.")
         }
     }
 
@@ -115,6 +122,44 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 viewController.emailLabel.text = email
             }
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    private func showResultViewController(credential: ASAuthorizationAppleIDCredential) {
+
+        guard let viewController = presentingViewController as? ResultViewController
+        else { return }
+
+        DispatchQueue.main.async {
+            viewController.userIdentifierLabel.text = credential.user
+            if let fullName = credential.fullName {
+                viewController.givenNameLabel.text = fullName.givenName
+                viewController.familyNameLabel.text = fullName.familyName
+            }
+            if let email = credential.email {
+                // TODO FIX
+                //viewController.emailLabel.text = email
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    private func updateResultViewController(credential: ASAuthorizationAppleIDCredential) {
+
+        guard let resultViewController = presentingViewController as? ResultViewController
+        else { return }
+
+        DispatchQueue.main.async {
+//            viewController.userIdentifierLabel.text = credential.user
+//            if let fullName = credential.fullName {
+//                viewController.givenNameLabel.text = fullName.givenName
+//                viewController.familyNameLabel.text = fullName.familyName
+//            }
+//            if let email = credential.email {
+//                viewController.emailLabel.text = credential.email
+//            }
+//            self.dismiss(animated: true, completion: nil)
+            resultViewController.updateAuthorizationLabels(credential: credential)
         }
     }
 
@@ -163,17 +208,6 @@ extension ASUserDetectionStatus {
     }
 }
 
-// public enum ASUserDetectionStatus : Int, @unchecked Sendable {
-//
-//
-//    case unsupported = 0
-//
-//    case unknown = 1
-//
-//    case likelyReal = 2
-// }
-//
-
 extension ASAuthorizationAppleIDCredential {
     override open var description: String {
         var sarr: [String] = []
@@ -201,65 +235,3 @@ extension ASAuthorizationAppleIDCredential {
     }
 }
 
-// self.printClassAndFuncClassAndFunc("ASAuthorizationAppleIDCredential: \(credentials)")
-// self.printClassAndFuncClassAndFunc("credentials.user: \(credentials.user)")
-// self.printClassAndFuncClassAndFunc("credentials.email: \(credentials.email ?? "???")")
-// self.printClassAndFuncClassAndFunc("credentials.fullName!.givenName: \(credentials.fullName!.givenName ?? "???")")
-// self.printClassAndFuncClassAndFunc("credentials.fullName!.familyName: \(credentials.fullName!.familyName ?? "???")")
-
-// @available(iOS 13.0, *)
-// open class ASAuthorizationAppleIDCredential : NSObject, ASAuthorizationCredential {
-//
-//
-//    /** @abstract An opaque user ID associated with the AppleID used for the sign in. This identifier will be stable across the 'developer team', it can later be used as an input to @see ASAuthorizationRequest to request user contact information.
-//
-//     The identifier will remain stable as long as the user is connected with the requesting client.  The value may change upon user disconnecting from the identity provider.
-//     */
-//    open var user: String { get }
-//
-//
-//    /** @abstract A copy of the state value that was passed to ASAuthorizationRequest.
-//     */
-//    open var state: String? { get }
-//
-//
-//    /** @abstract This value will contain a list of scopes for which the user provided authorization.  These may contain a subset of the requested scopes on @see ASAuthorizationAppleIDRequest.  The application should query this value to identify which scopes were returned as it maybe different from ones requested.
-//     */
-//    open var authorizedScopes: [ASAuthorization.Scope] { get }
-//
-//
-//    /** @abstract A short-lived, one-time valid token that provides proof of authorization to the server component of the app. The authorization code is bound to the specific transaction using the state attribute passed in the authorization request. The server component of the app can validate the code using Apple’s identity service endpoint provided for this purpose.
-//     */
-//    open var authorizationCode: Data? { get }
-//
-//
-//    /** @abstract A JSON Web Token (JWT) used to communicate information about the identity of the user in a secure way to the app. The ID token will contain the following information: Issuer Identifier, Subject Identifier, Audience, Expiry Time and Issuance Time signed by Apple's identity service.
-//     */
-//    open var identityToken: Data? { get }
-//
-//
-//    /** @abstract An optional email shared by the user.  This field is populated with a value that the user authorized.
-//     */
-//    open var email: String? { get }
-//
-//
-//    /** @abstract An optional full name shared by the user.  This field is populated with a value that the user authorized.
-//     */
-//    open var fullName: PersonNameComponents? { get }
-//
-//
-//    /** @abstract Check this property for a hint as to whether the current user is a "real user".  @see ASUserDetectionStatus for guidelines on handling each status
-//     */
-//    open var realUserStatus: ASUserDetectionStatus { get }
-// }
-
-// public enum ASUserDetectionStatus : Int, @unchecked Sendable {
-//
-//
-//    case unsupported = 0
-//
-//    case unknown = 1
-//
-//    case likelyReal = 2
-// }
-//
